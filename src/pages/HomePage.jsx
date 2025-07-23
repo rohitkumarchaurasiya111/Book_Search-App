@@ -5,6 +5,7 @@ import Footer from '../components/Footer'
 import BookList from '../components/BookList'
 import fetchBooks from '../service/api-client'
 import useBooks from '../service/useBooks'
+import BookDetails from '../components/BookDetails'
 
 function HomePage() {
     //These below codes were the old or primitive way of doing this but we have modified this to an modern and more modular approach
@@ -56,17 +57,29 @@ function HomePage() {
     //Using Custom Hooks - modern Approach
     const { books, setQuery, loading } = useBooks("Fiction");
 
+    //This state tells which book is selected
+    const [selectedBook, setSelectedBook] = useState(null)
+
     //This function takes the value from searchBar and sets that values in query.
     function handleSearch(searchItem) {
         setQuery(searchItem);
+    }
+
+    function handleOpenModal(book) {
+        setSelectedBook(book);
+    }
+
+    function handleCloseModeal() {
+        setSelectedBook(null);
     }
 
     return (
         <div className='d-flex flex-column min-vh-100'>
             <NavBar onSearch={handleSearch} />
             {/* if page is loading i.e. loading=true then below link will show loading in UI if loaded then books will be shown */}
-            {loading ? <div className="d-flex justify-content-center align-items-center"><h1>Loading...</h1></div> : <BookList books={books} />}
+            {loading ? <div className="d-flex justify-content-center align-items-center"><h1>Loading...</h1></div> : <BookList books={books} onSelectingCard={handleOpenModal} />}
             <Footer />
+            {selectedBook && (<BookDetails book={selectedBook} onClose={handleCloseModeal}/>)}
         </div>
     )
 }
