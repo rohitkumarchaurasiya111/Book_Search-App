@@ -41,6 +41,7 @@ A React-based application that lets you search for books by title, author, or IS
 
 ## 🧩 Project Structure
 
+```bash
 Book_Search-App/
 ├── public/
 ├── src/
@@ -54,7 +55,7 @@ Book_Search-App/
 ├── .env
 ├── package.json
 └── README.md
-
+```
 ---
 ## 📈 Future Enhancements
 
